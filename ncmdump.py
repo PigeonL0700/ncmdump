@@ -8,7 +8,7 @@ import base64
 import json
 import os
 from Crypto.Cipher import AES
-
+import fnmatch
 
 def dump(file_path):
     #十六进制转字符串
@@ -77,9 +77,13 @@ def dump(file_path):
     f.close()
     return file_name
 
-
+//将folder_path修改为自己的路径
 if __name__ == '__main__':
-    file_list = ['陈芳语 - 爱你.ncm', '李翊君 - 雨蝶.ncm']
-    for file in file_list:
-        filepath = "F:\CloudMusic\\"+file
-        dump(filepath)
+    folder_path = "YOUR\\PATH\\HERE\\"
+    ncm_files = []
+    for file in os.listdir(folder_path):
+        if fnmatch.fnmatch(file, "*.ncm"):
+            ncm_files.append(os.path.join(folder_path, file))
+
+    for file in ncm_files:
+        dump(file)
